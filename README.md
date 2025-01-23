@@ -8,15 +8,15 @@ This is where all of the data recording is processed, captured, and backup. Ther
 
 - CSV File Conversion
   ```cpp
-// Maximum rows allowed per sheet before exporting
-const MAX_ROWS = 50;
+    // Maximum rows allowed per sheet before exporting
+    const MAX_ROWS = 50;
 
-function checkAndExportSheets() {
-  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  const sheets = spreadsheet.getSheets();
-  const folder = getOrCreateFolder("Exported CSV Files"); // Folder to save CSV files
+    function checkAndExportSheets() {
+      const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+      const sheets = spreadsheet.getSheets();
+      const folder = getOrCreateFolder("Exported CSV Files"); // Folder to save CSV files
 
-  sheets.forEach(sheet => {
+    sheets.forEach(sheet => {
     const lastRow = sheet.getLastRow();
 
     if (lastRow >= MAX_ROWS) {
@@ -31,24 +31,24 @@ function checkAndExportSheets() {
       Logger.log(`Sheet "${sheet.getName()}" exported as "${csvFile.getName()}" and reformatted.`);
     }
   });
-}
+  }
 
-// Helper function: Export a sheet as CSV
-function exportSheetToCSV(sheet, folder) {
-  const data = sheet.getDataRange().getValues();
-  const csvContent = data.map(row => row.join(",")).join("\n");
+  // Helper function: Export a sheet as CSV
+  function exportSheetToCSV(sheet, folder) {
+    const data = sheet.getDataRange().getValues();
+    const csvContent = data.map(row => row.join(",")).join("\n");
 
- const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-  const fileName = `${sheet.getName()}_${timestamp}.csv`;
+   const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+    const fileName = `${sheet.getName()}_${timestamp}.csv`;
 
 
-  const blob = Utilities.newBlob(csvContent, "text/csv", fileName);
-  return folder.createFile(blob); // Save the file to the folder
+    const blob = Utilities.newBlob(csvContent, "text/csv", fileName);
+    return folder.createFile(blob); // Save the file to the folder
 
-}
+  }
 
-// Helper function: Format the sheet for reuse
-function formatSheet(sheet) {
+  // Helper function: Format the sheet for reuse
+  function formatSheet(sheet) {
   sheet.clear(); // Clear all data
   sheet.clearFormats(); // Clear formatting
   sheet.setRowHeight(1, 30); // Example: Set header row height
@@ -58,12 +58,11 @@ function formatSheet(sheet) {
   sheet.getRange(1, 4).setValue("");
   sheet.getRange(1, 5).setValue("");
   sheet.getRange(1, 6).setValue("");
-}
+  }
 
-// Helper function: Get or create a folder in Google Drive
-function getOrCreateFolder(folderName) {
-  const folders = DriveApp.getFoldersByName(folderName);
-  return folders.hasNext() ? folders.next() : DriveApp.createFolder(folderName);
-}
-
+  // Helper function: Get or create a folder in Google Drive
+  function getOrCreateFolder(folderName) {
+    const folders = DriveApp.getFoldersByName(folderName);
+    return folders.hasNext() ? folders.next() : DriveApp.createFolder(folderName);
+  }
 ```
