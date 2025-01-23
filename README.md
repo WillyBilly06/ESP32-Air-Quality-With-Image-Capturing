@@ -65,3 +65,4 @@ This is where all of the data recording is processed, captured, and backup. Ther
     const folders = DriveApp.getFoldersByName(folderName);
     return folders.hasNext() ? folders.next() : DriveApp.createFolder(folderName);
   }
+What this script does is when you set this code to run periodically (one run per 2 hours), it will check
