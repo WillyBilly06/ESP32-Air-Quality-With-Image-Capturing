@@ -6,7 +6,7 @@ This project aims to collect environmental data, including humidity, temperature
 
 This is where all of the data recording is processed, captured, and backup. There are total of 2 scripts for the project to work:
 
-- CSV File Conversion
+- CSV File Conversion:
   ```cpp
     // Maximum rows allowed per sheet before exporting
     const MAX_ROWS = 50;
@@ -65,4 +65,3 @@ This is where all of the data recording is processed, captured, and backup. Ther
     const folders = DriveApp.getFoldersByName(folderName);
     return folders.hasNext() ? folders.next() : DriveApp.createFolder(folderName);
   }
-```
